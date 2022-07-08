@@ -33,4 +33,5 @@ public class PlayerEntity extends AbstractCoreEntity {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "team_id")
-    private TeamEntity team;}
+    private TeamEntity team;
+}
