@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @Entity
 @Data
-@Table(name = "player")
+@Table(name = "game")
 @AllArgsConstructor
 @NoArgsConstructor
 public class GameEntity extends AbstractCoreEntity {

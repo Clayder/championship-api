@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @RestController
 public abstract class AbstractControllerCore<T extends AbstractCoreEntity, DTO extends AbstractDtoCore, ID extends Serializable> {
 
-     private ModelMapper modelMapper;
-    private IServiceCore<T, ID> service;
+    protected ModelMapper modelMapper;
+    protected IServiceCore<T, ID> service;
 
     public AbstractControllerCore(ModelMapper modelMapper, IServiceCore service) {
         this.modelMapper = modelMapper;

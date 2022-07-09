@@ -19,7 +19,7 @@ public abstract class AbstractCoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+//    private LocalDateTime createdAt;
+//    private LocalDateTime updatedAt;
+//    private LocalDateTime deletedAt;
 }

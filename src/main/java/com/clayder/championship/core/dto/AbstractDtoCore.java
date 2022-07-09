@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 public abstract class AbstractDtoCore {
     private Long id;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+//    private LocalDateTime createdAt;
+//    private LocalDateTime updatedAt;
+//    private LocalDateTime deletedAt;
 }
