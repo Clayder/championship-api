@@ -23,7 +23,7 @@ public class TeamEntity extends AbstractCoreEntity {
     @Column
     private String locale;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PlayerEntity> players;
 
 }

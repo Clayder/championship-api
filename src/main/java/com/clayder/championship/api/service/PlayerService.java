@@ -7,7 +7,7 @@ import com.clayder.championship.core.service.AbstractServiceCore;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PlayerService extends AbstractServiceCore<PlayerEntity, Long> {
+public class PlayerService extends AbstractServiceCore<PlayerEntity, Long> implements IPlayerService{
 
     private final TeamService teamService;
 

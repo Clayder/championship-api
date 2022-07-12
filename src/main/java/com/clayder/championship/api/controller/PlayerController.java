@@ -3,6 +3,7 @@ package com.clayder.championship.api.controller;
 import com.clayder.championship.api.dto.player.PlayerDtoRequest;
 import com.clayder.championship.api.dto.player.PlayerDtoResponse;
 import com.clayder.championship.api.entity.PlayerEntity;
+import com.clayder.championship.api.service.IPlayerService;
 import com.clayder.championship.api.service.PlayerService;
 import com.clayder.championship.core.controller.AbstractControllerCore;
 import org.modelmapper.ModelMapper;
@@ -19,8 +20,10 @@ import javax.validation.Valid;
 @RequestMapping("/api/v1/players")
 public class PlayerController extends AbstractControllerCore<PlayerEntity, PlayerDtoResponse, Long> {
 
-    public PlayerController(ModelMapper modelMapper, PlayerService service) {
+    IPlayerService service;
+    public PlayerController(ModelMapper modelMapper, IPlayerService service) {
         super(modelMapper, service);
+        this.service = service;
     }
 
     @Override

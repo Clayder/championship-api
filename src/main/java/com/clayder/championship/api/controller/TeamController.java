@@ -2,7 +2,7 @@ package com.clayder.championship.api.controller;
 
 import com.clayder.championship.api.dto.team.TeamDtoResponse;
 import com.clayder.championship.api.entity.TeamEntity;
-import com.clayder.championship.api.service.TeamService;
+import com.clayder.championship.api.service.ITeamService;
 import com.clayder.championship.core.controller.AbstractControllerCore;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/v1/teams")
 public class TeamController extends AbstractControllerCore<TeamEntity, TeamDtoResponse, Long> {
 
-    public TeamController(ModelMapper modelMapper, TeamService service) {
+    ITeamService service;
+    public TeamController(ModelMapper modelMapper, ITeamService service) {
         super(modelMapper, service);
+        this.service = service;
     }
 
     @Override

@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,31 +17,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public abstract class AbstractControllerCore<T extends AbstractCoreEntity, DTO extends AbstractDtoCore, ID extends Serializable> {
-
-    protected ModelMapper modelMapper;
-    protected IServiceCore<T, ID> service;
+public abstract class AbstractControllerCore<T extends AbstractCoreEntity, DTO extends AbstractDtoCore, ID extends Serializable> extends BaseAbstractControllerCore<T, DTO, ID> {
 
     public AbstractControllerCore(ModelMapper modelMapper, IServiceCore service) {
-        this.modelMapper = modelMapper;
-        this.service = service;
-    }
-
-    protected abstract Class<DTO> getDtoClass();
-
-    protected abstract Class<T> getEntityClass();
-
-    public ModelMapper getModelMapper() {
-        return modelMapper;
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<?> get(@PathVariable Long id) throws Throwable {
-        return ResponseEntity.ok().body(service
-                .findById((ID) id)
-                .map(data -> modelMapper.map(data, this.getDtoClass()))
-                .orElseThrow(() -> new ObjectNotFoundException("Nao encontrado")));
-
+        super(modelMapper, service);
     }
 
     @PostMapping
@@ -51,15 +29,6 @@ public abstract class AbstractControllerCore<T extends AbstractCoreEntity, DTO e
         T entity = this.getModelMapper().map(dto, this.getEntityClass());
         entity = service.save(entity);
         return this.getModelMapper().map(entity, this.getDtoClass());
-    }
-
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) throws Throwable {
-        T entity = this.service
-                .findById((ID) id)
-                .orElseThrow(() -> new ObjectNotFoundException("Nao encontrado"));
-        this.service.delete(entity);
     }
 
     @PutMapping("{id}")

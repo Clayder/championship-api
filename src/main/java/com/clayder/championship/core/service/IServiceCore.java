@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface IServiceCore <T, Long> {
     T save(T entity);
-    T save(T entity, Long id);
     Page<T> findAll(T filter, Pageable pageRequest);
     T update(T entity, Long id);
+    T update(T entity);
     void delete(T entity) throws IllegalArgumentException;
     Optional<T> findById(Long id);
     T getById(Long id);

@@ -23,11 +23,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class TransferEntity  extends AbstractCoreEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "origin_team_id")
     private TeamEntity originTeam;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "destination_team_id")
     private TeamEntity destinationTeam;
 

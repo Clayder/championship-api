@@ -15,14 +15,13 @@ import java.util.Optional;
 
 @Service
 @NoArgsConstructor
-public abstract class AbstractServiceCore<E extends AbstractCoreEntity, ID extends Serializable> implements IServiceCore<E, Long> {
+public abstract class AbstractServiceCore<E extends AbstractCoreEntity, ID extends Serializable> {
     private IRepositoryCore<E, ID> repository;
 
     public AbstractServiceCore(IRepositoryCore<E, ID> repository) {
         this.repository = repository;
     }
 
-    @Override
     public E save(E entity) {
         entity.setId(null);
 //        entity.setCreatedAt(LocalDateTime.now());
@@ -30,12 +29,6 @@ public abstract class AbstractServiceCore<E extends AbstractCoreEntity, ID exten
         return repository.save(entity);
     }
 
-    @Override
-    public E save(E entity, Long id) {
-        return null;
-    }
-
-    @Override
     public Page<E> findAll(E filter, Pageable pageRequest) {
 
         Example<E> example = Example.of(filter,
@@ -49,17 +42,14 @@ public abstract class AbstractServiceCore<E extends AbstractCoreEntity, ID exten
 
     }
 
-    @Override
     public Optional<E> findById(Long id) {
         return repository.findById((ID) id);
     }
 
-    @Override
     public E getById(Long id) {
         return repository.findById((ID) id).orElseThrow(() -> new ObjectNotFoundException("Não encontrado"));
     }
 
-    @Override
     public E update(E entity, Long id) {
         Optional<E> optional = repository.findById((ID) id);
         if (optional.isPresent()) {
@@ -73,7 +63,12 @@ public abstract class AbstractServiceCore<E extends AbstractCoreEntity, ID exten
         }
     }
 
-    @Override
+    public E update(E entity) {
+//            entity.setCreatedAt(result.getCreatedAt());
+//            entity.setUpdatedAt(LocalDateTime.now());
+        return (E) repository.save(entity);
+    }
+
     public void delete(E entity) throws IllegalArgumentException {
         if (entity == null || entity.getId() == null) {
             throw new IllegalArgumentException();
