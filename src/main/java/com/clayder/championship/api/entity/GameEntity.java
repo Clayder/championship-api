@@ -1,19 +1,13 @@
 package com.clayder.championship.api.entity;
 
 import com.clayder.championship.core.entity.AbstractCoreEntity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,35 +19,37 @@ import java.util.List;
 @NoArgsConstructor
 public class GameEntity extends AbstractCoreEntity {
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "home_team_id")
-    PlayerEntity homeTeam;
+    private TeamEntity homeTeam;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
-    PlayerEntity team;
+    private TeamEntity team;
 
     @Column
-    LocalDateTime start;
+    private LocalDateTime start;
 
     @Column
-    LocalDateTime finished;
+    private LocalDateTime finished;
 
     @Column
-    LocalDateTime intervalGame;
+    private LocalDateTime intervalGame;
 
     @Column
-    int timeAddition;
+    private int timeAddition;
 
-    @JsonBackReference
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tournament_id", referencedColumnName = "id")
+    private TournamentEntity tournament;
+
     @OneToMany(mappedBy = "game")
-    List<GolEntity> gols;
+    private List<GolEntity> gols;
 
-    @JsonBackReference
     @OneToMany(mappedBy = "game")
-    List<ReplacementEntity> replacement;
+    private List<ReplacementEntity> replacement;
 
-    @JsonBackReference
     @OneToMany(mappedBy = "game")
-    List<WarningEntity> warning;
+    private List<WarningEntity> warning;
 }

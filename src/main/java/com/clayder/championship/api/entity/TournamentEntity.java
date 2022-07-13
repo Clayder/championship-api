@@ -12,17 +12,14 @@ import java.util.List;
 @Builder
 @Entity
 @Data
-@Table(name = "team")
+@Table(name = "tournament")
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeamEntity extends AbstractCoreEntity {
+public class TournamentEntity extends AbstractCoreEntity {
 
     @Column
     private String name;
 
-    @Column
-    private String locale;
-
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<PlayerEntity> players;
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<GameEntity> games;
 }

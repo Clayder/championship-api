@@ -4,7 +4,6 @@ import com.clayder.championship.api.dto.player.PlayerDtoRequest;
 import com.clayder.championship.api.dto.player.PlayerDtoResponse;
 import com.clayder.championship.api.entity.PlayerEntity;
 import com.clayder.championship.api.service.IPlayerService;
-import com.clayder.championship.api.service.PlayerService;
 import com.clayder.championship.core.controller.AbstractControllerCore;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;

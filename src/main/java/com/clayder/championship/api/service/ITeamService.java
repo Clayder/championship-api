@@ -1,6 +1,5 @@
 package com.clayder.championship.api.service;
 
-import com.clayder.championship.api.entity.PlayerEntity;
 import com.clayder.championship.api.entity.TeamEntity;
 import com.clayder.championship.core.service.IServiceCore;
 

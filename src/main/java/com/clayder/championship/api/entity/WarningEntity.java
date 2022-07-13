@@ -1,16 +1,13 @@
 package com.clayder.championship.api.entity;
 
 import com.clayder.championship.core.entity.AbstractCoreEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Builder
 @Entity
@@ -20,11 +17,12 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class WarningEntity extends AbstractCoreEntity {
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "player_id")
-    PlayerEntity player;
+    private PlayerEntity player;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "game_id")
-    GameEntity game;
+    private GameEntity game;
 }

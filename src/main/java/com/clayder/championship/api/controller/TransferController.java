@@ -1,11 +1,9 @@
 package com.clayder.championship.api.controller;
 
-import com.clayder.championship.api.dto.player.PlayerDtoRequest;
 import com.clayder.championship.api.dto.transfer.TransferDtoRequest;
 import com.clayder.championship.api.dto.transfer.TransferDtoResponse;
 import com.clayder.championship.api.entity.TransferEntity;
 import com.clayder.championship.api.service.ITransferService;
-import com.clayder.championship.api.service.TransferService;
 import com.clayder.championship.core.controller.BaseAbstractControllerCore;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ public class TransferController extends BaseAbstractControllerCore<TransferEntit
 
     ITransferService service;
 
-    public TransferController(ModelMapper modelMapper, TransferService service) {
+    public TransferController(ModelMapper modelMapper, ITransferService service) {
         super(modelMapper, service);
         this.service = service;
     }

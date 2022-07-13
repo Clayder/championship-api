@@ -36,6 +36,18 @@ public abstract class BaseAbstractControllerCore<T extends AbstractCoreEntity, D
         return modelMapper;
     }
 
+    @GetMapping()
+    public Page<DTO> getAll(DTO dto, Pageable pageRequest) {
+        T filter = this.modelMapper.map(dto, this.getEntityClass());
+        Page<T> result = this.service.findAll(filter, pageRequest);
+        List<DTO> list = result.getContent()
+                .stream()
+                .map(entity -> this.modelMapper.map(entity, this.getDtoClass()))
+                .collect(Collectors.toList());
+
+        return new PageImpl<DTO>(list, pageRequest, result.getTotalElements());
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<?> get(@PathVariable Long id) throws Throwable {
         return ResponseEntity.ok().body(service
@@ -45,12 +57,11 @@ public abstract class BaseAbstractControllerCore<T extends AbstractCoreEntity, D
 
     }
 
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) throws Throwable {
-        T entity = this.service
-                .findById((ID) id)
-                .orElseThrow(() -> new ObjectNotFoundException("Nao encontrado"));
-        this.service.delete(entity);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public DTO create(@RequestBody @Valid DTO dto) {
+        T entity = this.getModelMapper().map(dto, this.getEntityClass());
+        entity = service.save(entity);
+        return this.getModelMapper().map(entity, this.getDtoClass());
     }
 }
