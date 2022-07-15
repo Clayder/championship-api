@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @RestController
 public abstract class BaseAbstractControllerCore<T extends AbstractCoreEntity, DTO extends AbstractDtoCore, ID extends Serializable> {
 

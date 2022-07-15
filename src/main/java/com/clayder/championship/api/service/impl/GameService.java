@@ -143,7 +143,7 @@ public class GameService extends AbstractServiceCore<GameEntity, Long> implement
         var game = this.getById(id);
         game.setTimeAddition(game.getTimeAddition() + addTime);
 
-        var message = "Acrescimo de " + addTime;
+        var message = "Acréscimo de " + addTime + " minutos.";
         sendMessage(game, message);
 
         return this.update(game);
